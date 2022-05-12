@@ -19,9 +19,9 @@ ts.append(["book_isbn", "book_img_url", "book_title","book_author", "book_publis
 
 
 #알라딘 사이트로 이동
-def move_to_aladin_site():
+def move_to_aladin_site(kategorie_number):
     driver.get('https://www.aladin.co.kr/home/wbookmain.aspx?start=we_tab')
-    driver.find_element_by_xpath('//*[@id="browse26"]/a').click()  # 카테고리 클릭 (browse뒤의 숫자를 바꿔 카테로리 별로 따로 크롤링 하였음)
+    driver.find_element_by_xpath('//*[@id="browse' + str(kategorie_number) + '"]/a').click()  # 카테고리 클릭 (browse뒤의 숫자를 바꿔 카테로리 별로 따로 크롤링 하였음)
     time.sleep(2)
     driver.find_element_by_class_name('bk5').click()  # 도서 모두 보기 클릭
 
@@ -88,7 +88,7 @@ def find_book_info_in_page(genre_name):
 
 for i in range(1, 11):
     driver = webdriver.Chrome('./chromedriver')
-    move_to_aladin_site()
+    move_to_aladin_site(26) # 매개변수: 카테고리 xpath별 number
 
     driver.find_element_by_xpath('//*[@id="short"]/div[' + str(i) + ']/a').click()
     time.sleep(1)
